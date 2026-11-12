@@ -16,9 +16,12 @@ unverified ones.
 ## Workflow
 
 1. Fork the repository and create a branch from `main`.
-2. Make your changes following the [authoring standards](authoring-standards.md).
+2. Make your changes following the [authoring standards](authoring-standards.md) and the
+   [documentation quality framework](quality-framework.md).
 3. Run the [local validation checks](../getting-started/local-development.md#validate-before-opening-a-pull-request).
-4. Open a pull request and complete the checklist.
+4. Record the review of new or re-reviewed entries in the
+   [quality review log](quality-review-log.md).
+5. Open a pull request and complete the checklist.
 
 ## Rules that always apply
 

@@ -26,7 +26,9 @@ def test_statuses_documented(root):
 
 def _entry(tmp_path, category="network-security", **meta):
     fm = {"tool": "Example", "category": category, "status": "draft",
-          "last_reviewed": "2026-01-01", "tested_versions": "[]"}
+          "last_reviewed": "2026-01-01", "tested_versions": "[]",
+          "website": "https://example.com", "repository": "https://example.com/source",
+          "requires_authorisation": "false"}
     fm.update(meta)
     body = ve.TEMPLATE.read_text().split("\n---\n", 1)[1]
     d = tmp_path / category
@@ -71,6 +73,25 @@ def test_offensive_entry_requires_warning(tmp_path):
     p = _entry(tmp_path, category="penetration-testing")
     p.write_text(p.read_text().replace("Authorised use only", "Note"))
     assert any("Authorised use only" in e for e in ve.validate(p))
+
+
+def test_new_metadata_keys_required(tmp_path):
+    p = _entry(tmp_path)
+    p.write_text(p.read_text().replace("website: https://example.com\n", ""))
+    errs = ve.validate(p)
+    assert any("missing 'website'" in e for e in errs)
+
+
+def test_metadata_value_types_checked(tmp_path):
+    errs = ve.validate(_entry(tmp_path, website="http://example.com", repository="none",
+                              requires_authorisation="maybe"))
+    assert any("website must be an https" in e for e in errs)
+    assert any("repository must be" in e for e in errs)
+    assert any("requires_authorisation must be" in e for e in errs)
+
+
+def test_proprietary_repository_allowed(tmp_path):
+    assert ve.validate(_entry(tmp_path, repository="Proprietary")) == []
 
 
 def test_missing_front_matter_rejected(tmp_path):

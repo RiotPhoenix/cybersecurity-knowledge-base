@@ -48,6 +48,9 @@ jobs:
       - name: Validate tool entries
         run: python scripts/validate_entries.py
 
+      - name: Check documentation quality
+        run: python scripts/check_quality.py
+
       - name: Scan for secrets
         run: python scripts/scan_secrets.py
 

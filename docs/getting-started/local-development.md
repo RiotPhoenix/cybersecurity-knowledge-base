@@ -41,6 +41,8 @@ Run the same checks as continuous integration:
 ```bash
 python -m mkdocs build --strict
 python scripts/check_links.py
+python scripts/validate_entries.py
+python scripts/check_quality.py
 python scripts/scan_secrets.py
 python -m pytest
 ```
@@ -49,8 +51,14 @@ python -m pytest
 |---|---|
 | `mkdocs build --strict` | Site builds; every page is in the navigation; no broken internal links or anchors. |
 | `scripts/check_links.py` | Relative links in repository Markdown outside `docs/` (README, guides, templates). |
+| `scripts/validate_entries.py` | Tool entries follow the template: metadata, sections, and *At a glance* rows. |
+| `scripts/check_quality.py` | Automated parts of the [documentation quality gates](../contributing/quality-framework.md), such as sources, required subsections, risky commands, and review records. |
 | `scripts/scan_secrets.py` | No credentials, private keys, or token-like strings in tracked files. |
-| `pytest` | Required files, configuration, template completeness, tool-entry metadata, workflow syntax, palette contrast. |
+| `pytest` | Required files, configuration, template completeness, tool-entry metadata, quality-check regression tests, search index, workflow syntax, palette contrast. |
+
+All of these run offline. The optional `scripts/check_external_links.py` contacts external
+websites and is run manually during reviews; see the
+[quality framework](../contributing/quality-framework.md#optional-external-link-check).
 
 ## Updating dependencies
 

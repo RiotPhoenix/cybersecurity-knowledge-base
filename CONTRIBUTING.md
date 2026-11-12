@@ -14,8 +14,10 @@ Thank you for your interest in improving the Cybersecurity Knowledge Base.
    `fix/<short-description>`).
 2. Set up the environment ([Local Development](docs/getting-started/local-development.md)).
 3. For a new tool, copy [`templates/tool-entry.md`](templates/tool-entry.md) to
-   `docs/tools/<category>/<tool-slug>.md`, add it to `nav` in `mkdocs.yml`, and link it from
-   the category index.
+   `docs/tools/<category>/<tool-slug>.md`, add it to `nav` in `mkdocs.yml`, link it from
+   the category index, and record its review in the
+   [quality review log](docs/contributing/quality-review-log.md) (see the
+   [quality framework](docs/contributing/quality-framework.md)).
 4. Run all checks:
 
    ```bash
@@ -23,6 +25,7 @@ Thank you for your interest in improving the Cybersecurity Knowledge Base.
    python scripts/check_links.py
    python scripts/scan_secrets.py
    python scripts/validate_entries.py
+   python scripts/check_quality.py
    python -m pytest
    ```
 

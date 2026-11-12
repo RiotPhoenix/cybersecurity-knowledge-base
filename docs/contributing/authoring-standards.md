@@ -18,6 +18,24 @@
 | Alternatives | Link to other entries in this knowledge base where they exist. |
 | Tested versions | Exact version strings you executed, with platform. |
 
+## Quality gates
+
+Every non-draft entry must pass the four [documentation quality gates](quality-framework.md):
+structure, technical accuracy, sources and evidence, and operational safety. Run
+`python scripts/check_quality.py` and record the review in the
+[quality review log](quality-review-log.md). In particular:
+
+- Cite the official website and repository, and organise references under *Official
+  documentation*, *Installation references*, *Security and deployment references*, and dated
+  *Verification notes*.
+- In the verification notes, say what was checked, against which source, on which date, what (if
+  anything) was executed, and what remains unresolved.
+- Label commands you have executed (for example *spot-checked*) and treat everything else as
+  illustrative. Do not record `tested_versions` until the entry is `lab-tested`.
+- Prefer stable installation channels over hard-coded version numbers. When a version matters
+  (for example a distribution lagging a security fix), state it with the date checked.
+- Never put secrets on the command line. Read them interactively, or from a protected file.
+
 ## Writing style
 
 - Use clear, neutral, technical language and UK or US spelling consistently within a page.
@@ -44,7 +62,7 @@
 ## Offensive security tools
 
 Entries for tools capable of attacking systems (scanners, exploitation frameworks, credential
-attacks, interception tools) must:
+attacks, interception tools) must set `requires_authorisation: true` in their front matter and:
 
 1. Begin with an **Authorised use only** warning admonition.
 2. Use examples that target only lab systems or documentation-reserved addresses.

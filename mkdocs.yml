@@ -89,3 +89,5 @@ nav:
       - Authoring Standards: contributing/authoring-standards.md
       - Tool Entry Template: contributing/tool-template.md
       - Verification Statuses: contributing/verification-statuses.md
+      - Quality Framework: contributing/quality-framework.md
+      - Quality Review Log: contributing/quality-review-log.md

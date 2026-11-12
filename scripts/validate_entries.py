@@ -20,7 +20,8 @@ TEMPLATE = ROOT / "templates" / "tool-entry.md"
 
 STATUSES = ("draft", "research-complete", "documentation-reviewed", "lab-tested",
             "production-validated")
-FRONT_MATTER_KEYS = ("tool", "category", "status", "last_reviewed", "tested_versions")
+FRONT_MATTER_KEYS = ("tool", "category", "status", "last_reviewed", "tested_versions",
+                     "website", "repository", "requires_authorisation")
 GLANCE_FIELDS = ("Official website", "Source repository", "Licence",
                  "Supported operating systems", "Maintenance status", "Category",
                  "Personal suitability", "Enterprise suitability", "Tested versions",
@@ -83,6 +84,13 @@ def validate(path: Path, *, is_template: bool = False) -> list[str]:
         errs.append(f"{path}: tested_versions must be a list")
     elif status in ("lab-tested", "production-validated") and not tv:
         errs.append(f"{path}: status '{status}' requires at least one tested version")
+    if not str(meta.get("website", "")).startswith("https://"):
+        errs.append(f"{path}: website must be an https:// URL")
+    repo = str(meta.get("repository", ""))
+    if not (repo.startswith("https://") or repo == "Proprietary"):
+        errs.append(f"{path}: repository must be an https:// URL or 'Proprietary'")
+    if not isinstance(meta.get("requires_authorisation"), bool):
+        errs.append(f"{path}: requires_authorisation must be true or false")
     if category in OFFENSIVE_CATEGORIES and "Authorised use only" not in body:
         errs.append(f"{path}: offensive-category entry requires an 'Authorised use only' warning")
     return errs
