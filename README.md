@@ -8,10 +8,12 @@ home-lab, professional, and enterprise environments.
 
 **Website:** <https://riotphoenix.github.io/cybersecurity-knowledge-base/>
 
-> **Status — foundation release (v0.1.0).** The taxonomy, templates, editorial standards, and
-> publishing pipeline are in place. Tool entries have not been published yet.
+> **Status: v0.2.0.** Six tool entries are published (Nmap, Wireshark, Greenbone Community
+> Edition, Nuclei, KeePassXC, and Vaultwarden), each checked against official sources and the
+> documentation quality gates. None is yet marked lab-tested. Other categories are still being
+> populated.
 
-## What each tool entry will cover
+## What each tool entry covers
 
 Overview and capabilities · official website, source, and licence · supported platforms and
 maintenance status · personal and enterprise suitability · installation and initial
@@ -45,6 +47,7 @@ python -m mkdocs build --strict
 python scripts/check_links.py
 python scripts/scan_secrets.py
 python scripts/validate_entries.py
+python scripts/check_quality.py
 python -m pytest
 ```
 
@@ -54,7 +57,7 @@ python -m pytest
 |---|---|
 | `docs/` | Website content (Markdown) and stylesheets |
 | `templates/` | Tool entry template |
-| `scripts/` | Validation scripts (links, secrets, entry structure) |
+| `scripts/` | Validation scripts (links, secrets, entry structure, documentation quality) |
 | `tests/` | Automated tests (`pytest`) |
 | `decisions/` | Architecture decision records |
 | `.github/` | CI/CD workflows, issue and pull request templates |
