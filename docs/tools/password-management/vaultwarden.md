@@ -275,7 +275,9 @@ gpg --symmetric --cipher-algo AES256 /srv/backups/vaultwarden/files-$(date +%F).
 
 Adjust the file list to what exists in your data directory: `config.json` exists only if the
 admin page has saved settings. The wiki also documents `/vaultwarden backup` inside the
-container (since 1.32.1) and advises against relying on filesystem or VM snapshots. Copy
+container (since 1.32.1), which writes `db_<timestamp>.sqlite3` next to the database (so into
+`vw-data/` on the host, according to the 1.37.5 source code), and advises against relying on
+filesystem or VM snapshots. Copy
 encrypted backups off the host, and **test a restore**. The wiki's restore procedure is: stop
 Vaultwarden, replace the files in the data directory, and delete any existing
 `db.sqlite3-wal` file when restoring from a `.backup` copy.
@@ -387,5 +389,12 @@ Bitwarden's own offering, is more appropriate for production.
   `false`. This entry sets it explicitly to `false` either way.
 - **Not executed:** Vaultwarden was not deployed for this entry. The Compose file and backup
   commands are adapted from the README and wiki and are illustrative.
-- **Unresolved:** behaviour of the non-root configuration on rootless Podman; the output location
-  of the built-in `/vaultwarden backup` command.
+- **Maintenance re-check (2026-11-12):** the `backup_sqlite` function in `src/db/mod.rs` at tag
+  `1.37.5` writes the backup with SQLite `VACUUM INTO` to `db_<YYYYMMDD_HHMMSS>.sqlite3` (UTC
+  timestamp) in the **same directory as the SQLite database**, prints the path, and works only for
+  SQLite. With the Compose file above, that is `vw-data/` on the host. The wiki's *Using Podman*
+  page documents rootful Quadlet units (publishing the port on all interfaces) and an older
+  `podman run` example with the SELinux `:Z` volume option. It does not cover the non-root `user:`
+  setting under rootless Podman user namespaces.
+- **Unresolved:** behaviour of the non-root configuration on rootless Podman (not documented
+  upstream; needs a lab test).

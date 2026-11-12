@@ -46,9 +46,11 @@ def probe(url: str, timeout: float) -> tuple[str, str]:
                 final = resp.geturl()
                 return ("ok" if final == url else "redirected", final)
         except urllib.error.HTTPError as exc:
-            if exc.code in DEFINITE_FAILURES:
-                return ("broken", f"HTTP {exc.code}")
+            # Some servers answer HEAD with 404/405 while serving GET normally, so a HEAD
+            # error is never conclusive: only a GET 404/410 counts as a definite failure.
             if method == "GET":
+                if exc.code in DEFINITE_FAILURES:
+                    return ("broken", f"HTTP {exc.code}")
                 return ("unverified", f"HTTP {exc.code}")
         except (urllib.error.URLError, TimeoutError, OSError) as exc:
             if method == "GET":

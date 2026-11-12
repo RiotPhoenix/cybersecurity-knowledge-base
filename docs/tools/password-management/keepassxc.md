@@ -314,7 +314,7 @@ These patterns work only where the limitations below are explicitly accepted.
 - [KeePassXC website](https://keepassxc.org)
 - [Documentation index](https://keepassxc.org/docs/), including the User Guide and Getting
   Started guide
-- [FAQ](https://keepassxc.org/faq/) (key files, hardware keys, sync, mobile apps, audit)
+- [FAQ](https://keepassxc.org/docs/#faq) (key files, hardware keys, sync, mobile apps, audit)
 - Source repository: <https://github.com/keepassxreboot/keepassxc>
 - Maintainer-authored documentation sources:
   [database operations](https://github.com/keepassxreboot/keepassxc/blob/develop/docs/topics/DatabaseOperations.adoc),
@@ -344,7 +344,14 @@ These patterns work only where the limitations below are explicitly accepted.
   (packages.debian.org).
 - **Not executed:** KeePassXC was not installed or run for this entry. CLI commands and options
   were checked against the `keepassxc-cli` manual only.
-- **Unresolved:** the default cipher and KDF parameters for new databases and the default
-  lock/clipboard timeouts in the GUI (not stated in the documentation reviewed). The official
-  FAQ states Auto-Type works only under X11 on Linux, which conflicts with the 2.8.0
-  documentation and release notes on Wayland support.
+- **Maintenance re-check (2026-11-12):** the 2.8.0 source code
+  (`src/gui/dbsettings/DatabaseSettingsWidgetEncryption.cpp`, `src/crypto/kdf/Kdf.h`) sets new
+  databases to KDBX 4 with the AES-256 cipher and the Argon2d KDF, with KDF parameters
+  benchmarked to a default target decryption time of 1000 ms (allowed range 100 to 5000 ms).
+  This is evidence from the code, not from the user documentation. The FAQ still says Auto-Type
+  on Linux "only works in an X11 session, not Wayland", while the 2.8.0 release notes list "Add
+  Wayland Auto-Type support using XDG Desktop Portals". This entry follows the release notes and
+  the 2.8.0 documentation and keeps the conflict visible.
+- **Unresolved:** the default lock and clipboard timeouts in the GUI (not stated in the
+  documentation reviewed); the FAQ's Wayland statement conflicts with the 2.8.0 release notes
+  and documentation, so behaviour on a given desktop should be verified in a lab.

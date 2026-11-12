@@ -345,3 +345,60 @@ def test_review_log_parses_every_published_entry():
 def test_needs_review_is_accepted():
     p = ve.TOOLS_DIR / "network-security" / "nmap.md"
     assert cq.check_entry(p, today=TODAY, reviews=review(p, g2="Needs review")).errors == []
+
+
+# --- optional external link checker (offline parts only) --------------------------------
+
+def test_external_url_extraction():
+    text = ("See [docs](https://a.example.org/x#frag) and <https://b.example.org/> and "
+            "[local](../x.md) and [again](https://a.example.org/x).")
+    assert cel.external_urls(text) == ["https://a.example.org/x", "https://b.example.org/"]
+
+
+def test_external_link_checker_not_in_ci(root):
+    ci = (root / ".github/workflows/docs-check.yml").read_text()
+    assert "check_external_links" not in ci, "external link checks must stay out of routine CI"
+
+
+# --- optional external link checker (offline: urlopen is stubbed) ------------------------
+
+def _stub_urlopen(monkeypatch, responses):
+    """responses: method -> HTTP status; 200 means success."""
+    import io
+    import urllib.error
+
+    class Resp(io.BytesIO):
+        def __init__(self, url):
+            super().__init__(b"")
+            self._url = url
+
+        def geturl(self):
+            return self._url
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    def fake(req, timeout):
+        code = responses[req.get_method()]
+        if code == 200:
+            return Resp(req.full_url)
+        raise urllib.error.HTTPError(req.full_url, code, "x", {}, None)
+    monkeypatch.setattr(cel.urllib.request, "urlopen", fake)
+
+
+def test_external_link_head_404_falls_back_to_get(monkeypatch):
+    _stub_urlopen(monkeypatch, {"HEAD": 404, "GET": 200})
+    assert cel.probe("https://example.org/page", 1)[0] == "ok"
+
+
+def test_external_link_get_404_is_definite(monkeypatch):
+    _stub_urlopen(monkeypatch, {"HEAD": 404, "GET": 404})
+    assert cel.probe("https://example.org/gone", 1)[0] == "broken"
+
+
+def test_external_link_rate_limit_is_unverified(monkeypatch):
+    _stub_urlopen(monkeypatch, {"HEAD": 429, "GET": 429})
+    assert cel.probe("https://example.org/busy", 1)[0] == "unverified"
