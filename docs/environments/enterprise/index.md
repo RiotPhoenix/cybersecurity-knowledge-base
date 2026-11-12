@@ -49,6 +49,14 @@ Guidance for organisations evaluating and deploying security tooling at scale.
 | [Nuclei](../../tools/vulnerability-management/nuclei.md) | Targeted, repeatable checks within a governed programme | Template trust and review. Default use of public out-of-band servers. Fast-changing flags. |
 | [KeePassXC](../../tools/password-management/keepassxc.md) | Individual administrators and small teams | No central administration, audit trail, or per-user revocation. |
 | [Vaultwarden](../../tools/password-management/vaultwarden.md) | Evaluation of self-hosted password infrastructure | Unofficial and community-supported. You carry all operational, recovery, and compatibility risk. |
+| [Suricata](../../tools/network-security/suricata.md) | Network intrusion detection at choke points, with event forwarding to the SIEM | Needs sensor engineering, TAPs or packet brokers, and a rule lifecycle. Inline IPS needs designed failure modes. |
+| [Zeek](../../tools/network-security/zeek.md) | Network security monitoring and incident scoping | Generates large log volumes. Needs a log platform, cluster operations, and privacy governance. |
+| [Wazuh](../../tools/siem/wazuh.md) | Endpoint security monitoring and centralised alerting | Strict version alignment across components. Indexer capacity planning. Not a complete replacement for every SIEM, EDR, or XDR capability. |
+| [ZAP](../../tools/penetration-testing/zap.md) | Authorised application security testing and CI baseline scans | Active scans need written authorisation and scope. Findings need triage by application experts. |
+| [OpenBao](../../tools/password-management/openbao.md) | Centralised secrets and credential lifecycle management | Becomes critical infrastructure. Unseal-key custody, HA, and backups are your responsibility. Community support only. |
+
+The [security monitoring lab](../personal/security-monitoring-lab.md) is a small-scale model of how
+these tools fit together. Its section 16 lists the changes needed at enterprise scale.
 
 ## Planned coverage
 

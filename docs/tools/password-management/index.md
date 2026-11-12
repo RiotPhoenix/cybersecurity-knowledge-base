@@ -34,7 +34,10 @@ and a [quality review](../../contributing/quality-review-log.md) against the
 |---|---|---|---|---|
 | [KeePassXC](keepassxc.md) | Offline, file-based encrypted password database | High | Low to Medium (no central administration) | Research complete |
 | [Vaultwarden](vaultwarden.md) | Unofficial, self-hosted Bitwarden-compatible server | Medium to High | Low to Medium (community-supported) | Research complete |
+| [OpenBao](openbao.md) | Secrets management for machines and applications: policies, dynamic credentials, audit | Medium | High (with mature operations) | Research complete |
 
 Choose KeePassXC if you want no server to run; choose a server such as Vaultwarden if you
 need multi-device sync and sharing and can operate HTTPS, backups, and updates reliably.
-Not yet documented: machine-secrets vaults, key management, and secret-sprawl detection.
+Choose OpenBao for **machine and application secrets** (API keys, database credentials,
+certificates), not as a personal password manager. Not yet documented: key management and
+secret-sprawl detection.

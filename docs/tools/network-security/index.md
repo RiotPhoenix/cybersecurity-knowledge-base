@@ -36,6 +36,11 @@ and a [quality review](../../contributing/quality-review-log.md) against the
 |---|---|---|---|---|
 | [Nmap](nmap.md) | Host discovery, port and service scanning, segmentation validation | High | High (with scope control) | Research complete |
 | [Wireshark](wireshark.md) | Packet capture and protocol analysis for troubleshooting and investigation | High | High (as an analyst tool) | Research complete |
+| [Suricata](suricata.md) | Signature-based network intrusion detection (passive IDS), with optional inline prevention | Medium | High (with sensor and rule management) | Research complete |
+| [Zeek](zeek.md) | Network security monitoring: structured logs of connections, DNS, HTTP, TLS, and files | Medium | High (with a log platform) | Research complete |
 
-Both tools observe or probe networks and require authorisation. Not yet documented:
-firewalls, NIDS, VPN, DNS filtering, and flow monitoring.
+All four tools observe or probe networks and require authorisation. Suricata and Zeek are
+complementary rather than interchangeable: Suricata alerts on known-bad patterns, while Zeek
+records what happened. Both need a copy of the traffic (a mirror port or TAP) to see more than
+their own host. See the [security monitoring lab](../../environments/personal/security-monitoring-lab.md)
+for how they fit together. Not yet documented: firewalls, VPN, DNS filtering, and flow monitoring.

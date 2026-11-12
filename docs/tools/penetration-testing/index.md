@@ -34,7 +34,14 @@ options for a given need and compare them consistently. Each tool entry follows 
 
 ## Tool entries
 
-!!! note "Planned"
-    No tool entries have been published in this category yet. Entries are added only after
-    they have been researched against official sources. See
-    [Contributing](../../contributing/index.md) to propose a tool.
+Each entry records its [verification status](../../contributing/verification-statuses.md)
+and a [quality review](../../contributing/quality-review-log.md) against the
+[documentation quality gates](../../contributing/quality-framework.md). *Research complete* means checked against official sources, not lab-tested.
+
+| Tool | What it is for | Personal | Enterprise | Status |
+|---|---|---|---|---|
+| [ZAP](zap.md) | Intercepting proxy and web application scanner (passive analysis and active testing) | High (against lab applications) | Medium to High (with scope and triage processes) | Research complete |
+
+Passive analysis and active scanning are different activities: active scans send attacks and
+always need written authorisation. Not yet documented: exploitation frameworks, credential testing,
+wireless assessment, and testing distributions.

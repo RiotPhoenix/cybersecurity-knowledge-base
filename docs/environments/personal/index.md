@@ -27,6 +27,13 @@ people:
 | 3 | Understand traffic and troubleshoot | [Wireshark](../../tools/network-security/wireshark.md) | Shows what your devices actually send, which makes DNS and connectivity problems visible. |
 | 4 | Find known vulnerabilities on lab hosts | [Nuclei](../../tools/vulnerability-management/nuclei.md) for targeted checks, then [Greenbone](../../tools/vulnerability-management/greenbone-community-edition.md) for full assessments | Nuclei is a single binary; Greenbone is heavier but broader. |
 | 5 | Share passwords across devices and family | [Vaultwarden](../../tools/password-management/vaultwarden.md), only if you will run it properly | A self-hosted server is a commitment (see below). |
+| 6 | Learn network security monitoring | [Zeek](../../tools/network-security/zeek.md) on capture files, then [Suricata](../../tools/network-security/suricata.md) and Zeek on a mirrored lab segment | Offline analysis needs no extra hardware. Live monitoring needs a mirror port or TAP. |
+| 7 | Monitor lab hosts and centralise alerts | [Wazuh](../../tools/siem/wazuh.md) | Endpoint monitoring and FIM, but the central stack needs 4 vCPU and 8 GiB RAM. |
+| 8 | Practise web application testing | [ZAP](../../tools/penetration-testing/zap.md) against a deliberately vulnerable application on loopback | Teaches the difference between passive analysis and active attacks safely. |
+| 9 | Keep lab service credentials out of config files | [OpenBao](../../tools/password-management/openbao.md) | Teaches policy-based access, but unseal keys and TLS need care. |
+
+For a worked design that combines steps 2, 4, 6, 7, and 9, see the
+[security monitoring lab reference architecture](security-monitoring-lab.md).
 
 ## Hardware and resources
 
@@ -35,13 +42,21 @@ people:
 | KeePassXC, Nmap, Wireshark, Nuclei | Runs on an ordinary laptop or desktop. |
 | Vaultwarden | Very light: a small VM or single-board computer is enough for a household. The real requirements are HTTPS, backups, and updates. |
 | Greenbone Community Edition | Minimum 2 CPU cores, 4 GB RAM, 20 GB disk; 4 cores, 8 GB, and 60 GB recommended. Plan a dedicated VM. |
+| ZAP | Runs on a workstation (Java 17 or later). Active scans of large applications use significant memory. |
+| Suricata and Zeek | No official minimum. A sensor with two NICs and a mirror port is needed for live monitoring. Disk use grows with logged traffic. |
+| Wazuh (central stack) | 4 vCPU, 8 GiB RAM, and 50 GB for 1 to 25 agents with 90 days of alerts (official quickstart). Agents need about 35 MB RAM. |
+| OpenBao | Light for a single node, but needs TLS, unseal-key custody, and backups. |
+
+A single mini PC cannot comfortably run Wazuh, Greenbone, the sensors, and lab VMs together. The
+[security monitoring lab](security-monitoring-lab.md) describes a staged deployment.
 
 ## Local tools versus self-hosted services
 
 - **Local tools** (KeePassXC, Nmap, Wireshark, Nuclei) run when you start them and store data in
   files you control. Your responsibilities are keeping them updated and protecting their output:
   capture files, scan results, and the password database.
-- **Self-hosted services** (Vaultwarden, Greenbone) run continuously, and you become the
+- **Self-hosted services** (Vaultwarden, Greenbone, Suricata, Zeek, Wazuh, OpenBao) run
+  continuously, and you become the
   operator. You must handle TLS certificates, updates (including security fixes, sometimes
   urgently), backups and restore tests, monitoring, and access control. If you cannot commit
   to that, prefer a local tool or a reputable hosted service.
@@ -70,7 +85,8 @@ people:
 ## Planned coverage
 
 !!! note "Planned"
-    - Reference home-lab architectures and network segmentation.
+    - Further reference architectures (the first is the
+      [security monitoring lab](security-monitoring-lab.md)).
     - Baseline hardening for personal Linux, Windows, and macOS systems.
     - Learning paths that link tool entries in a sensible order.
     - Resource-constrained deployment notes for further tool entries.

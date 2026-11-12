@@ -5,10 +5,12 @@ they fit, how to install and harden them, and how they compare — across **pers
 home-lab, professional, and enterprise** environments.
 
 !!! info "Project status"
-    The first six tool entries are published, in network security, vulnerability management,
-    and password management. Each was checked against official sources and the
-    [documentation quality gates](contributing/quality-framework.md), and none is yet
-    lab-tested. Sections marked *Planned* describe intended coverage, not finished content.
+    Eleven tool entries are published, across network security, vulnerability management,
+    SIEM, penetration testing, and password and secret management, together with a
+    [home-lab security monitoring architecture](environments/personal/security-monitoring-lab.md).
+    Each entry was checked against official sources and the
+    [documentation quality gates](contributing/quality-framework.md). None is yet lab-tested:
+    the [lab validation framework](contributing/lab-validation.md) defines the evidence needed. Sections marked *Planned* describe intended coverage, not finished content.
     Every entry carries an explicit [verification status](contributing/verification-statuses.md)
     and last-reviewed date.
 
@@ -40,24 +42,36 @@ evaluate and deploy it with confidence. It is written for:
 | [Nuclei](tools/vulnerability-management/nuclei.md) | Vulnerability Management | Run targeted, template-based vulnerability checks | Research complete |
 | [KeePassXC](tools/password-management/keepassxc.md) | Password and Secret Management | Keep passwords in an offline encrypted database | Research complete |
 | [Vaultwarden](tools/password-management/vaultwarden.md) | Password and Secret Management | Self-host a Bitwarden-compatible password server (unofficial) | Research complete |
+| [Suricata](tools/network-security/suricata.md) | Network Security | Detect known threats in mirrored network traffic (passive IDS) | Research complete |
+| [Zeek](tools/network-security/zeek.md) | Network Security | Record connection, DNS, HTTP, and TLS activity for investigation | Research complete |
+| [Wazuh](tools/siem/wazuh.md) | SIEM and Log Management | Monitor endpoints and centralise security alerts | Research complete |
+| [ZAP](tools/penetration-testing/zap.md) | Penetration Testing | Test web applications you are authorised to assess | Research complete |
+| [OpenBao](tools/password-management/openbao.md) | Password and Secret Management | Store and control access to machine and application secrets | Research complete |
+
+## Reference architecture
+
+The [security monitoring lab](environments/personal/security-monitoring-lab.md) shows how
+Suricata, Zeek, Wazuh, Nmap, Greenbone, and OpenBao can be combined in a segmented home lab, with
+staged hardware tiers, data flows, and a clear split between documented integrations and
+conceptual ones.
 
 ## Tool categories
 
 | Category | Scope | Status |
 |---|---|---|
-| [Network Security](tools/network-security/index.md) | Traffic analysis, firewalls, NIDS, VPN, DNS security | 2 entries |
+| [Network Security](tools/network-security/index.md) | Traffic analysis, firewalls, NIDS, VPN, DNS security | 4 entries |
 | [Vulnerability Management](tools/vulnerability-management/index.md) | Scanning, prioritisation, remediation tracking | 2 entries |
-| [Penetration Testing](tools/penetration-testing/index.md) | Authorised offensive testing and control validation | Planned |
+| [Penetration Testing](tools/penetration-testing/index.md) | Authorised offensive testing and control validation | 1 entry |
 | [Digital Forensics](tools/digital-forensics/index.md) | Evidence acquisition, preservation, analysis | Planned |
 | [OSINT](tools/osint/index.md) | Public-source research and exposure assessment | Planned |
-| [SIEM and Log Management](tools/siem/index.md) | Collection, search, correlation, detection | Planned |
+| [SIEM and Log Management](tools/siem/index.md) | Collection, search, correlation, detection | 1 entry |
 | [Endpoint Security](tools/endpoint-security/index.md) | EDR, host hardening, integrity monitoring | Planned |
 | [Incident Response](tools/incident-response/index.md) | Triage, containment, case management | Planned |
 | [Threat Intelligence](tools/threat-intelligence/index.md) | Collection, enrichment, sharing | Planned |
 | [Cloud Security](tools/cloud-security/index.md) | Posture, IaC, cloud identity, containers | Planned |
 | [DevSecOps](tools/devsecops/index.md) | Pipeline security, SAST, supply chain | Planned |
 | [Identity and Access Management](tools/identity-access/index.md) | SSO, MFA, directories, privileged access | Planned |
-| [Password and Secret Management](tools/password-management/index.md) | Password managers, vaults, key management | 2 entries |
+| [Password and Secret Management](tools/password-management/index.md) | Password managers, vaults, key management | 3 entries |
 | [Infrastructure and Home Labs](tools/infrastructure/index.md) | Virtualisation, segmentation, lab design | Planned |
 
 ## Getting started
@@ -72,9 +86,11 @@ evaluate and deploy it with confidence. It is written for:
 |---|---|
 | Category taxonomy and introductions | Available |
 | Tool entry template, editorial standards, and quality framework | Available |
-| Environment tracks, with links to documented tools | Available |
+| Environment tracks, with links to documented tools and the reference architecture | Available |
 | Glossary (core terms) | Available |
-| Tool entries | 6 published; more planned |
+| Tool entries | 11 published; more planned |
+| Reference architectures | 1 (home-lab security monitoring) |
+| Lab validation framework and evidence template | Available (no lab records yet) |
 | Guides, comparisons, framework mappings | Planned |
 
 ## Contributing

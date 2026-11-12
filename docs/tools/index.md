@@ -24,10 +24,14 @@ areas is documented once, in its primary category, and cross-referenced from oth
 
 | Category | Entries |
 |---|---|
-| [Network Security](network-security/index.md) | [Nmap](network-security/nmap.md), [Wireshark](network-security/wireshark.md) |
+| [Network Security](network-security/index.md) | [Nmap](network-security/nmap.md), [Wireshark](network-security/wireshark.md), [Suricata](network-security/suricata.md), [Zeek](network-security/zeek.md) |
 | [Vulnerability Management](vulnerability-management/index.md) | [Greenbone Community Edition](vulnerability-management/greenbone-community-edition.md), [Nuclei](vulnerability-management/nuclei.md) |
-| [Password and Secret Management](password-management/index.md) | [KeePassXC](password-management/keepassxc.md), [Vaultwarden](password-management/vaultwarden.md) |
+| [Penetration Testing](penetration-testing/index.md) | [ZAP](penetration-testing/zap.md) |
+| [SIEM and Log Management](siem/index.md) | [Wazuh](siem/wazuh.md) |
+| [Password and Secret Management](password-management/index.md) | [KeePassXC](password-management/keepassxc.md), [Vaultwarden](password-management/vaultwarden.md), [OpenBao](password-management/openbao.md) |
 
-Other categories have no entries yet. Entries are added progressively. Each has a stated
+Other categories have no entries yet. Entries are added progressively. To see how several
+tools work together, read the
+[security monitoring lab](../environments/personal/security-monitoring-lab.md) architecture. Each has a stated
 [verification status](../contributing/verification-statuses.md) and a recorded
 [quality review](../contributing/quality-review-log.md).

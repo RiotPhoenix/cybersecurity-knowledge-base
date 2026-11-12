@@ -38,6 +38,16 @@ PUBLISHED_ENTRIES = {
     "tools/vulnerability-management/nuclei/": "Nuclei",
     "tools/password-management/keepassxc/": "KeePassXC",
     "tools/password-management/vaultwarden/": "Vaultwarden",
+    "tools/network-security/suricata/": "Suricata",
+    "tools/network-security/zeek/": "Zeek",
+    "tools/siem/wazuh/": "Wazuh",
+    "tools/penetration-testing/zap/": "ZAP",
+    "tools/password-management/openbao/": "OpenBao",
+}
+SUPPORTING_PAGES = {
+    "environments/personal/security-monitoring-lab/": "Security Monitoring Lab",
+    "contributing/lab-validation/": "Lab Validation",
+    "lab-evidence/": "Lab Evidence Records",
 }
 
 
@@ -113,3 +123,20 @@ def test_local_asset_references_resolve(site):
             else:
                 target = (html.parent / ref).resolve()
             assert target.is_file(), f"{html.relative_to(site)} -> missing asset {ref}"
+
+
+def test_supporting_pages_built_searchable_and_in_nav(site):
+    import json
+    docs = json.loads((site / "search/search_index.json").read_text())["docs"]
+    pages = {d["location"]: d["title"] for d in docs if "#" not in d["location"]}
+    nav = (site / "index.html").read_text()
+    for loc, title in SUPPORTING_PAGES.items():
+        assert (site / loc / "index.html").is_file(), loc
+        assert pages.get(loc) == title, f"{loc} missing from search index"
+        assert f'href="{loc}"' in nav, f"{loc} not in site navigation"
+
+
+def test_architecture_diagram_rendered_as_preformatted_text(site):
+    html = (site / "environments/personal/security-monitoring-lab/index.html").read_text()
+    assert "Router / firewall" in html and "<pre" in html
+

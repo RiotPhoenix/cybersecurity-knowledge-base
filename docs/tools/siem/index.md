@@ -27,7 +27,14 @@ options for a given need and compare them consistently. Each tool entry follows 
 
 ## Tool entries
 
-!!! note "Planned"
-    No tool entries have been published in this category yet. Entries are added only after
-    they have been researched against official sources. See
-    [Contributing](../../contributing/index.md) to propose a tool.
+Each entry records its [verification status](../../contributing/verification-statuses.md)
+and a [quality review](../../contributing/quality-review-log.md) against the
+[documentation quality gates](../../contributing/quality-framework.md). *Research complete* means checked against official sources, not lab-tested.
+
+| Tool | What it is for | Personal | Enterprise | Status |
+|---|---|---|---|---|
+| [Wazuh](wazuh.md) | Endpoint monitoring, log collection, file integrity monitoring, vulnerability detection, and central alerting | Medium (needs 4 vCPU and 8 GiB for the central stack) | Medium to High | Research complete |
+
+Wazuh agents monitor **endpoints**. For network traffic visibility, pair it with a network sensor
+such as [Suricata](../network-security/suricata.md), whose alerts a Wazuh agent can collect. Not yet
+documented: dedicated log platforms and forwarders.

@@ -66,14 +66,20 @@ nav:
           - Overview: tools/network-security/index.md
           - Nmap: tools/network-security/nmap.md
           - Wireshark: tools/network-security/wireshark.md
+          - Suricata: tools/network-security/suricata.md
+          - Zeek: tools/network-security/zeek.md
       - Vulnerability Management:
           - Overview: tools/vulnerability-management/index.md
           - Greenbone Community Edition: tools/vulnerability-management/greenbone-community-edition.md
           - Nuclei: tools/vulnerability-management/nuclei.md
-      - Penetration Testing: tools/penetration-testing/index.md
+      - Penetration Testing:
+          - Overview: tools/penetration-testing/index.md
+          - ZAP: tools/penetration-testing/zap.md
       - Digital Forensics: tools/digital-forensics/index.md
       - OSINT: tools/osint/index.md
-      - SIEM and Log Management: tools/siem/index.md
+      - SIEM and Log Management:
+          - Overview: tools/siem/index.md
+          - Wazuh: tools/siem/wazuh.md
       - Endpoint Security: tools/endpoint-security/index.md
       - Incident Response: tools/incident-response/index.md
       - Threat Intelligence: tools/threat-intelligence/index.md
@@ -84,10 +90,12 @@ nav:
           - Overview: tools/password-management/index.md
           - KeePassXC: tools/password-management/keepassxc.md
           - Vaultwarden: tools/password-management/vaultwarden.md
+          - OpenBao: tools/password-management/openbao.md
       - Infrastructure and Home Labs: tools/infrastructure/index.md
   - Environments:
       - Overview: environments/index.md
       - Personal and Home Lab: environments/personal/index.md
+      - Security Monitoring Lab: environments/personal/security-monitoring-lab.md
       - Enterprise: environments/enterprise/index.md
   - Guides: guides/index.md
   - Comparisons: comparisons/index.md
