@@ -1,0 +1,56 @@
+name: New tool entry
+description: Propose a cybersecurity tool for the knowledge base.
+title: "[Tool]: "
+labels: ["tool-entry"]
+body:
+  - type: input
+    id: tool
+    attributes:
+      label: Tool name
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Network Security
+        - Vulnerability Management
+        - Penetration Testing
+        - Digital Forensics
+        - OSINT
+        - SIEM and Log Management
+        - Endpoint Security
+        - Incident Response
+        - Threat Intelligence
+        - Cloud Security
+        - DevSecOps
+        - Identity and Access Management
+        - Password and Secret Management
+        - Infrastructure and Home Labs
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Official website
+      placeholder: https://
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source repository (if open source)
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why should it be included?
+      description: The problem it solves and its relevance for personal and/or enterprise use.
+    validations:
+      required: true
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contribution
+      options:
+        - label: I am willing to write this entry following the template.

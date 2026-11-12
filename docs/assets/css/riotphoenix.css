@@ -1,0 +1,178 @@
+/*
+ * RiotPhoenix theme layer for the standard MkDocs theme (Bootstrap 5).
+ * Dark-first. Colour tokens are defined once below; tests/test_design.py checks
+ * WCAG contrast for the text/background pairings used here.
+ *
+ * Contrast notes (WCAG 2.x):
+ *   --rp-text   on --rp-bg      16.7:1  (AAA)
+ *   --rp-muted  on --rp-bg       7.5:1  (AAA)
+ *   --rp-link   on --rp-bg       7.8:1  (AAA)  amber is used for text/links
+ *   --rp-accent on --rp-bg       4.7:1  burnt orange used for borders/accents only
+ */
+:root {
+  --rp-bg: #101114;          /* near-black */
+  --rp-surface: #191b1f;     /* graphite */
+  --rp-surface-2: #25282d;   /* charcoal */
+  --rp-accent: #b86b3b;      /* burnt orange */
+  --rp-link: #d69a61;        /* warm amber */
+  --rp-text: #f1f1ef;        /* soft white */
+  --rp-muted: #a0a4aa;       /* muted grey */
+  --rp-border: #33363c;
+  --rp-info: #7fb2d9;
+  --rp-warn: #e0b45c;
+  --rp-danger: #e07a6b;
+  --rp-radius: 6px;
+  --rp-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "DejaVu Sans Mono", Menlo, Consolas, monospace;
+  --rp-sans: system-ui, -apple-system, "Segoe UI", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: var(--rp-bg);
+  --bs-body-color: var(--rp-text);
+  --bs-secondary-color: var(--rp-muted);
+  --bs-emphasis-color: var(--rp-text);
+  --bs-border-color: var(--rp-border);
+  --bs-link-color: var(--rp-link);
+  --bs-link-color-rgb: 214, 154, 97;
+  --bs-link-hover-color: var(--rp-text);
+  --bs-link-hover-color-rgb: 241, 241, 239;
+  --bs-tertiary-bg: var(--rp-surface);
+  --bs-secondary-bg: var(--rp-surface-2);
+  --bs-code-color: var(--rp-link);
+  --bs-font-sans-serif: var(--rp-sans);
+  --bs-font-monospace: var(--rp-mono);
+}
+
+body {
+  background-color: var(--rp-bg);
+  color: var(--rp-text);
+  font-family: var(--rp-sans);
+  line-height: 1.65;
+}
+
+/* ---------- Navigation bar ---------- */
+.navbar.bg-primary {
+  background-color: var(--rp-surface) !important;
+  border-bottom: 2px solid var(--rp-accent);
+}
+.navbar .navbar-brand { color: var(--rp-text) !important; font-weight: 600; letter-spacing: .01em; }
+.navbar .nav-link { color: var(--rp-muted) !important; }
+.navbar .nav-link:hover,
+.navbar .nav-link.active,
+.navbar .nav-item.active > .nav-link { color: var(--rp-text) !important; }
+.dropdown-menu {
+  --bs-dropdown-bg: var(--rp-surface);
+  --bs-dropdown-link-color: var(--rp-text);
+  --bs-dropdown-link-hover-bg: var(--rp-surface-2);
+  --bs-dropdown-link-hover-color: var(--rp-text);
+  --bs-dropdown-link-active-bg: var(--rp-surface-2);
+  --bs-dropdown-link-active-color: var(--rp-link);
+  border: 1px solid var(--rp-border);
+}
+.dropdown-item.active { border-left: 3px solid var(--rp-accent); }
+
+/* ---------- Sidebar table of contents ---------- */
+.bs-sidebar .nav > li > a { color: var(--rp-muted); }
+.bs-sidebar .nav > li > a:hover,
+.bs-sidebar .nav > li > a:focus { color: var(--rp-text); background: var(--rp-surface); }
+.bs-sidebar .nav > .active > a,
+.bs-sidebar .nav > .active:hover > a { color: var(--rp-link); border-left: 2px solid var(--rp-accent); }
+.bs-sidebar.card { background: var(--rp-surface); border-color: var(--rp-border); }
+
+/* ---------- Typography ---------- */
+h1, h2, h3, h4, h5, h6 { color: var(--rp-text); font-weight: 600; line-height: 1.3; }
+h1 { border-bottom: 1px solid var(--rp-border); padding-bottom: .4rem; margin-bottom: 1.2rem; }
+h2 { margin-top: 2.2rem; }
+h2::before { content: ""; display: inline-block; width: .3em; height: .9em; margin-right: .45em;
+             background: var(--rp-accent); border-radius: 1px; vertical-align: -0.05em; }
+a { color: var(--rp-link); text-underline-offset: .15em; }
+a:hover { color: var(--rp-text); }
+.headerlink { color: var(--rp-muted); opacity: 0; margin-left: .35em; text-decoration: none; }
+h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, .headerlink:focus { opacity: 1; }
+kbd { background: var(--rp-surface-2); color: var(--rp-text); border: 1px solid var(--rp-border);
+      border-radius: 3px; padding: .1em .4em; font-family: var(--rp-mono); }
+dt { color: var(--rp-link); margin-top: 1rem; }
+dd { margin-left: 1.2rem; }
+
+/* ---------- Focus visibility (keyboard navigation) ---------- */
+a:focus-visible, button:focus-visible, input:focus-visible, .nav-link:focus-visible,
+.dropdown-item:focus-visible {
+  outline: 2px solid var(--rp-link);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* ---------- Code ---------- */
+code {
+  font-family: var(--rp-mono);
+  color: var(--rp-link);
+  background: var(--rp-surface-2);
+  padding: .1em .35em;
+  border-radius: 3px;
+  font-size: .9em;
+}
+pre, .highlight pre {
+  background: var(--rp-surface) !important;
+  border: 1px solid var(--rp-border);
+  border-left: 3px solid var(--rp-accent);
+  border-radius: var(--rp-radius);
+  padding: .9rem 1rem;
+  overflow-x: auto;
+  font-size: .875rem;
+  line-height: 1.5;
+}
+pre code, .highlight pre code { background: transparent; padding: 0; color: var(--rp-text); }
+.highlight { background: transparent !important; }
+
+/* ---------- Tables ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: .95rem;
+  display: block;
+  overflow-x: auto;           /* responsive: scroll wide tables instead of breaking layout */
+}
+@media (min-width: 768px) { table { display: table; } }
+th, td { border: 1px solid var(--rp-border); padding: .5rem .75rem; vertical-align: top; text-align: left; }
+thead th { background: var(--rp-surface-2); color: var(--rp-text); font-weight: 600; }
+tbody tr:nth-child(even) { background: var(--rp-surface); }
+
+/* ---------- Admonitions ---------- */
+.admonition, details {
+  background: var(--rp-surface);
+  color: var(--rp-text);
+  border: 1px solid var(--rp-border);
+  border-left: 4px solid var(--rp-info);
+  border-radius: var(--rp-radius);
+  padding: .75rem 1rem;
+  margin: 1.25rem 0;
+}
+.admonition > :last-child { margin-bottom: 0; }
+.admonition-title { font-weight: 600; margin-bottom: .35rem; color: var(--rp-info); }
+.admonition.note, .admonition.info { border-left-color: var(--rp-info); }
+.admonition.note .admonition-title, .admonition.info .admonition-title { color: var(--rp-info); }
+.admonition.tip { border-left-color: var(--rp-link); }
+.admonition.tip .admonition-title { color: var(--rp-link); }
+.admonition.warning, .admonition.caution, .admonition.attention { border-left-color: var(--rp-warn); }
+.admonition.warning .admonition-title, .admonition.caution .admonition-title { color: var(--rp-warn); }
+.admonition.danger, .admonition.error { border-left-color: var(--rp-danger); }
+.admonition.danger .admonition-title, .admonition.error .admonition-title { color: var(--rp-danger); }
+/* Neutralise theme heading colours inside admonitions */
+.admonition h1, .admonition h2, .admonition h3, .admonition h4 { color: var(--rp-text); }
+
+/* ---------- Search modal ---------- */
+.modal-content { background: var(--rp-surface); color: var(--rp-text); border: 1px solid var(--rp-border); }
+.form-control { background: var(--rp-bg); color: var(--rp-text); border-color: var(--rp-border); }
+.form-control:focus { background: var(--rp-bg); color: var(--rp-text); border-color: var(--rp-accent);
+                      box-shadow: 0 0 0 .2rem rgba(184, 107, 59, .35); }
+#mkdocs-search-results article h3 a { color: var(--rp-link); }
+
+/* ---------- Footer ---------- */
+footer { color: var(--rp-muted); border-top: 1px solid var(--rp-border); margin-top: 3rem; padding-top: 1rem; }
+footer a { color: var(--rp-muted); }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

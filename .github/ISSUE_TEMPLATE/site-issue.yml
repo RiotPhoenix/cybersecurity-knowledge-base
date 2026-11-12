@@ -1,0 +1,19 @@
+name: Website or tooling issue
+description: Report a problem with the website, build, or validation tooling.
+title: "[Site]: "
+labels: ["site"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+  - type: input
+    id: environment
+    attributes:
+      label: Browser / OS / Python version

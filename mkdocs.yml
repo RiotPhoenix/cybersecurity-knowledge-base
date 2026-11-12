@@ -1,0 +1,91 @@
+site_name: Cybersecurity Knowledge Base
+site_description: >-
+  A structured, verification-focused reference for cybersecurity tools across
+  personal, home-lab, professional and enterprise environments.
+site_author: RiotPhoenix
+site_url: https://riotphoenix.github.io/cybersecurity-knowledge-base/
+repo_url: https://github.com/RiotPhoenix/cybersecurity-knowledge-base
+repo_name: GitHub
+edit_uri: edit/main/docs/
+copyright: >-
+  &copy; RiotPhoenix. Documentation licensed under CC BY 4.0; code under MIT.
+
+docs_dir: docs
+site_dir: site
+use_directory_urls: true
+strict: true
+
+theme:
+  name: mkdocs
+  color_mode: dark
+  user_color_mode_toggle: false
+  highlightjs: false        # use local Pygments highlighting; no CDN assets
+  navigation_depth: 3
+  locale: en
+
+extra_css:
+  - assets/css/pygments.css
+  - assets/css/riotphoenix.css
+
+plugins:
+  - search
+
+markdown_extensions:
+  - toc:
+      permalink: "#"
+      permalink_title: Link to this section
+  - admonition
+  - attr_list
+  - def_list
+  - tables
+  - fenced_code
+  - codehilite:
+      guess_lang: false
+      css_class: highlight
+
+validation:
+  nav:
+    omitted_files: warn     # strict mode turns these into errors
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Overview: getting-started/index.md
+      - Local Development: getting-started/local-development.md
+      - GitHub Pages Deployment: getting-started/deployment.md
+  - Tools:
+      - Catalogue: tools/index.md
+      - Network Security: tools/network-security/index.md
+      - Vulnerability Management: tools/vulnerability-management/index.md
+      - Penetration Testing: tools/penetration-testing/index.md
+      - Digital Forensics: tools/digital-forensics/index.md
+      - OSINT: tools/osint/index.md
+      - SIEM and Log Management: tools/siem/index.md
+      - Endpoint Security: tools/endpoint-security/index.md
+      - Incident Response: tools/incident-response/index.md
+      - Threat Intelligence: tools/threat-intelligence/index.md
+      - Cloud Security: tools/cloud-security/index.md
+      - DevSecOps: tools/devsecops/index.md
+      - Identity and Access Management: tools/identity-access/index.md
+      - Password and Secret Management: tools/password-management/index.md
+      - Infrastructure and Home Labs: tools/infrastructure/index.md
+  - Environments:
+      - Overview: environments/index.md
+      - Personal and Home Lab: environments/personal/index.md
+      - Enterprise: environments/enterprise/index.md
+  - Guides: guides/index.md
+  - Comparisons: comparisons/index.md
+  - Frameworks: frameworks/index.md
+  - Glossary: glossary/index.md
+  - Contributing:
+      - Overview: contributing/index.md
+      - Authoring Standards: contributing/authoring-standards.md
+      - Tool Entry Template: contributing/tool-template.md
+      - Verification Statuses: contributing/verification-statuses.md

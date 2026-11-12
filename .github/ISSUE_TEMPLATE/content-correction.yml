@@ -1,0 +1,29 @@
+name: Content correction
+description: Report inaccurate, outdated, or unclear documentation.
+title: "[Correction]: "
+labels: ["content-correction"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page URL or file path
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Supporting official source
+      description: Link to official documentation, release notes, or other authoritative evidence.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: >-
+        If the content recommends an insecure configuration that could cause harm, please use
+        private vulnerability reporting instead (see SECURITY.md).
