@@ -51,6 +51,9 @@ jobs:
       - name: Check documentation quality
         run: python scripts/check_quality.py
 
+      - name: Check lab evidence records
+        run: python scripts/check_lab_evidence.py
+
       - name: Scan for secrets
         run: python scripts/scan_secrets.py
 

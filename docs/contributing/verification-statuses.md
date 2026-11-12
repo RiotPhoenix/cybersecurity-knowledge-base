@@ -9,8 +9,8 @@ pull request.
 | `draft` | Work in progress. May be incomplete. | None — clearly labelled as draft. |
 | `research-complete` | All sections written from official sources. | Every factual section cites an official source. |
 | `documentation-reviewed` | A second contributor has checked the entry against sources. | Named reviewer and review date. |
-| `lab-tested` | Installation, configuration, and examples executed in a lab. | A dated *Lab evidence* subsection recording the operating system, software version, the commands or procedure executed, actual observed results, deviations, and limitations. `tested_versions` filled in. |
-| `production-validated` | Deployed and operated in a real authorised production environment. | Description of the environment (without private or sensitive infrastructure details), duration, and date. Never assigned without genuine evidence. |
+| `lab-tested` | Installation, configuration, and examples executed in a lab. | A dated *Lab evidence* subsection linking to at least one [lab evidence record](lab-validation.md) with outcome `pass` or `partial`, recording the operating system, software version, the procedure executed, actual observed results, deviations, and limitations. `tested_versions` filled in. |
+| `production-validated` | Deployed and operated in a real authorised production environment. | A lab evidence record with `environment_type: production` describing the environment (without private or sensitive infrastructure details), duration, and date. Never assigned without genuine evidence. |
 
 !!! warning "No unsupported claims"
     Do not mark an entry `lab-tested` or `production-validated` because the instructions
@@ -23,7 +23,9 @@ Running a few individual commands is useful evidence, but it is not a lab test o
 documented procedure. Record such spot checks in the entry's *Verification notes*, label the
 commands in the text, and keep the status at `research-complete` (or `documentation-reviewed`).
 Statuses are independent of the [documentation quality gates](quality-framework.md): an entry
-must pass the gates whatever its status.
+must pass the gates whatever its status. A successful installation alone does not justify
+`lab-tested` for an entry that also documents configuration and usage. See
+[lab validation](lab-validation.md) for what a record does and does not prove.
 
 ## Review cadence
 

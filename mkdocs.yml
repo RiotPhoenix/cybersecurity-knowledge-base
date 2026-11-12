@@ -100,3 +100,5 @@ nav:
       - Verification Statuses: contributing/verification-statuses.md
       - Quality Framework: contributing/quality-framework.md
       - Quality Review Log: contributing/quality-review-log.md
+      - Lab Validation: contributing/lab-validation.md
+      - Lab Evidence Records: lab-evidence/index.md

@@ -73,12 +73,14 @@ this gate is automated.
   anything) was executed, and unresolved questions.
 - Testing claims match the status: `tested_versions` stays empty below `lab-tested`, and
   first-person claims such as "we tested" may appear only in the verification notes.
-  `lab-tested` and above require a dated **Lab evidence** subsection.
+  `lab-tested` and above require a dated **Lab evidence** subsection that links to valid
+  [lab evidence records](lab-validation.md), at least one of which passed (or partially passed)
+  on a version listed in `tested_versions`.
 - Significant technical claims are traceable to a cited source. Claims that cannot be verified
   are removed, qualified, or listed as unresolved. Citations and URLs are never invented.
 
-**Enforced by:** `scripts/check_quality.py` (structure of the evidence) and the reviewer
-(whether each claim is actually supported).
+**Enforced by:** `scripts/check_quality.py` and `scripts/check_lab_evidence.py` (structure and
+consistency of the evidence) and the reviewer (whether each claim is actually supported).
 
 ### Gate 4: Operational safety and usability
 
@@ -109,6 +111,8 @@ this gate is automated.
 | `exposed-interface` | Services published on all interfaces, or admin protection disabled | `-p 8080:80`, `--listen=0.0.0.0`, `DISABLE_ADMIN_TOKEN=true` |
 | `intrusive-scan` | Intrusive scanner options | `nmap -T5`, `--script exploit`, Nuclei `-itags dos`, `-dast` |
 | `privileged-gui` | Packet-analysis GUI run as root | `sudo wireshark` |
+| `active-web-scan` | Active web application scans, which send attacks | `zap-full-scan.py`, `zap-api-scan.py`, an Automation Framework `type: activeScan` job, `-quickurl` |
+| `dev-mode-server` | Secrets server in insecure development mode | `bao server -dev`, `vault server -dev` |
 
 Placeholders such as `<PASSWORD>`, `$VARIABLE`, and `${VARIABLE}` are not treated as
 credentials. Publish container ports on `127.0.0.1` unless wider exposure is the point of the
@@ -129,6 +133,7 @@ Reviewers should question every exception.
 ```bash
 python scripts/validate_entries.py            # template structure (Gate 1)
 python scripts/check_quality.py               # Gates 1, 3, 4 automation and review records
+python scripts/check_lab_evidence.py          # lab evidence template and records (Gate 3)
 python scripts/check_links.py                 # internal links outside MkDocs
 python -m mkdocs build --strict               # rendering, navigation, links, anchors
 python -m pytest -ra                          # regression tests, site build, search index

@@ -26,6 +26,7 @@ Thank you for your interest in improving the Cybersecurity Knowledge Base.
    python scripts/scan_secrets.py
    python scripts/validate_entries.py
    python scripts/check_quality.py
+   python scripts/check_lab_evidence.py
    python -m pytest
    ```
 

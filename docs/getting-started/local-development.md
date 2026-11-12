@@ -43,6 +43,7 @@ python -m mkdocs build --strict
 python scripts/check_links.py
 python scripts/validate_entries.py
 python scripts/check_quality.py
+python scripts/check_lab_evidence.py
 python scripts/scan_secrets.py
 python -m pytest
 ```
@@ -53,6 +54,7 @@ python -m pytest
 | `scripts/check_links.py` | Relative links in repository Markdown outside `docs/` (README, guides, templates). |
 | `scripts/validate_entries.py` | Tool entries follow the template: metadata, sections, and *At a glance* rows. |
 | `scripts/check_quality.py` | Automated parts of the [documentation quality gates](../contributing/quality-framework.md), such as sources, required subsections, risky commands, and review records. |
+| `scripts/check_lab_evidence.py` | The [lab evidence](../contributing/lab-validation.md) template and every record: required fields and sections, valid values, matching entries, and no private addresses or e-mail addresses. |
 | `scripts/scan_secrets.py` | No credentials, private keys, or token-like strings in tracked files. |
 | `pytest` | Required files, configuration, template completeness, tool-entry metadata, quality-check regression tests, search index, workflow syntax, palette contrast. |
 

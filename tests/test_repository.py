@@ -7,7 +7,9 @@ import pytest
 REQUIRED_FILES = [
     "README.md", "CONTRIBUTING.md", "SECURITY.md", "CHANGELOG.md", "LICENSE",
     "LICENSE-DOCS.md", "mkdocs.yml", "requirements.txt", "requirements-dev.txt",
-    ".gitignore", "templates/tool-entry.md", ".github/pull_request_template.md",
+    ".gitignore", "templates/tool-entry.md", "templates/lab-evidence.md",
+    "scripts/check_lab_evidence.py", "docs/contributing/lab-validation.md",
+    "docs/lab-evidence/index.md", ".github/pull_request_template.md",
     ".github/workflows/docs-check.yml", ".github/workflows/deploy-pages.yml",
     ".github/ISSUE_TEMPLATE/config.yml", "decisions/README.md",
     "docs/index.md", "docs/assets/css/riotphoenix.css", "docs/assets/css/pygments.css",

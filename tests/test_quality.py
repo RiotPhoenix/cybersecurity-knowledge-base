@@ -169,14 +169,21 @@ def test_testing_claim_allowed_in_verification_notes(entry):
     assert check(entry).errors == []
 
 
-def test_lab_tested_requires_lab_evidence(entry):
+def test_lab_tested_requires_lab_evidence(entry, lab_record):
     replace(entry, "status: research-complete", "status: lab-tested")
     replace(entry, "tested_versions: []", 'tested_versions: ["4.6.8 on Fedora 44"]')
     replace(entry, "| Verification status | Research complete |", "| Verification status | Lab tested |")
-    errs = check(entry).errors
+    docs_root = entry.parent.parent
+    errs = check(entry, docs_root=docs_root).errors
     assert any("Lab evidence" in e for e in errs)
+    # A dated subsection alone is no longer enough: it must link to a valid record.
     entry.write_text(entry.read_text() + "\n### Lab evidence\n\n- 2026-11-12, Fedora 44, 4.6.8: ...\n")
-    assert check(entry).errors == []
+    assert any("must link to at least one record" in e for e in check(entry, docs_root=docs_root).errors)
+    lab_record(docs_root)
+    entry.write_text(entry.read_text().replace(
+        "- 2026-11-12, Fedora 44, 4.6.8: ...",
+        "- 2026-11-12, Fedora 44, 4.6.8: [record](../lab-evidence/sample-2026-11-12.md)"))
+    assert check(entry, docs_root=docs_root).errors == []
 
 
 # --- Gate 4: safety ------------------------------------------------------------------------
@@ -203,6 +210,12 @@ UNSAFE = [
     ("intrusive-scan", "nuclei -l t.txt -itags dos"),
     ("intrusive-scan", "nuclei -u https://example.com -dast"),
     ("privileged-gui", "sudo wireshark"),
+    ("active-web-scan", "zap-full-scan.py -t http://juice-shop:3000"),
+    ("active-web-scan", "zap-api-scan.py -t https://staging.example.com/openapi.json -f openapi"),
+    ("active-web-scan", "  - type: activeScan"),
+    ("active-web-scan", "./zap.sh -cmd -quickurl http://localhost:3000"),
+    ("dev-mode-server", "bao server -dev"),
+    ("dev-mode-server", "vault server -dev-root-token-id=root"),
 ]
 
 
@@ -229,6 +242,10 @@ SAFE = [
     "nuclei -l targets.txt -etags dos,fuzz -rl 10",
     "curl -fsSL -O https://example.com/compose.yaml",
     "tshark -i lo -c 10",
+    "zap-baseline.py -t http://juice-shop:3000 -r report.html",
+    "  - type: activeScan-config",
+    "bao server -config=/etc/openbao.d",
+    "docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop",
 ]
 
 
@@ -328,16 +345,3 @@ def test_review_log_parses_every_published_entry():
 def test_needs_review_is_accepted():
     p = ve.TOOLS_DIR / "network-security" / "nmap.md"
     assert cq.check_entry(p, today=TODAY, reviews=review(p, g2="Needs review")).errors == []
-
-
-# --- optional external link checker (offline parts only) --------------------------------
-
-def test_external_url_extraction():
-    text = ("See [docs](https://a.example.org/x#frag) and <https://b.example.org/> and "
-            "[local](../x.md) and [again](https://a.example.org/x).")
-    assert cel.external_urls(text) == ["https://a.example.org/x", "https://b.example.org/"]
-
-
-def test_external_link_checker_not_in_ci(root):
-    ci = (root / ".github/workflows/docs-check.yml").read_text()
-    assert "check_external_links" not in ci, "external link checks must stay out of routine CI"

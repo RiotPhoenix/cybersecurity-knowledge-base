@@ -35,5 +35,9 @@ Each review for the results above covered:
   covering privileges, network exposure, credential handling, backup and recovery, and the
   honesty of suitability ratings.
 
+Since the lab validation framework was introduced, Gate 3 also covers lab evidence records:
+an entry claiming `lab-tested` or `production-validated` must link to valid records (see
+[lab validation](lab-validation.md)). No entry currently makes that claim.
+
 These reviews were performed by the entries' author. An independent second review, which
 the `documentation-reviewed` status requires, has not yet taken place.

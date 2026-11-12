@@ -48,6 +48,7 @@ python scripts/check_links.py
 python scripts/scan_secrets.py
 python scripts/validate_entries.py
 python scripts/check_quality.py
+python scripts/check_lab_evidence.py
 python -m pytest
 ```
 
@@ -56,8 +57,8 @@ python -m pytest
 | Path | Purpose |
 |---|---|
 | `docs/` | Website content (Markdown) and stylesheets |
-| `templates/` | Tool entry template |
-| `scripts/` | Validation scripts (links, secrets, entry structure, documentation quality) |
+| `templates/` | Tool entry and lab evidence templates |
+| `scripts/` | Validation scripts (links, secrets, entry structure, documentation quality, lab evidence) |
 | `tests/` | Automated tests (`pytest`) |
 | `decisions/` | Architecture decision records |
 | `.github/` | CI/CD workflows, issue and pull request templates |

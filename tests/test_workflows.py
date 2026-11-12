@@ -48,7 +48,7 @@ def test_docs_check_is_read_only(root):
     assert "pull_request" in wf["on"] and "pull_request_target" not in wf["on"]
     runs = " ".join(s.get("run", "") for s in steps(wf))
     for cmd in ("mkdocs build --strict", "check_links.py", "pytest", "scan_secrets.py",
-                "validate_entries.py", "check_quality.py", "pip check"):
+                "validate_entries.py", "check_quality.py", "check_lab_evidence.py", "pip check"):
         assert cmd in runs, f"docs-check does not run {cmd}"
 
 

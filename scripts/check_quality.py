@@ -32,6 +32,7 @@ from pathlib import Path
 
 import yaml
 
+import check_lab_evidence as cle
 import validate_entries as ve
 
 ROOT = ve.ROOT
@@ -114,6 +115,11 @@ SAFETY_RULES = [
              r"|\bnuclei\b[^\n#]*(-itags|-include-tags)[= ]\S*\b(dos|fuzz|bruteforce)\b"
              r"|\bnuclei\b[^\n#]*\s-(dast|fuzz)\b")),
     Rule("privileged-gui", "packet-analysis GUI run as root", _rx(r"\bsudo\s+(-\S+\s+)*wireshark\b")),
+    Rule("active-web-scan", "active web application scan (sends attacks to the target)",
+         _rx(r"\bzap-(full|api)-scan\.py\b|^\s*-?\s*type:\s*activeScan\s*$|\s-quickurl\b"
+             r"|/JSON/ascan/action/scan\b")),
+    Rule("dev-mode-server", "secrets server started in insecure development mode",
+         _rx(r"\b(bao|vault)\s+server\s+(\S+\s+)*-dev\b")),
 ]
 RULE_IDS = {r.id for r in SAFETY_RULES}
 
@@ -244,9 +250,50 @@ def review_rows(log: Path = REVIEW_LOG) -> dict[str, list[str]]:
     return rows
 
 
+def check_lab_records(path: Path, meta: dict, status: str, evidence: str, rep: Report, *,
+                      today: dt.date, docs_root: Path) -> None:
+    """A tested status needs linked, valid lab evidence records that support this entry."""
+    linked = [u for u in links(evidence) if not u.startswith("http") and "lab-evidence/" in u]
+    if not linked:
+        rep.errors.append(f"{path}: '### Lab evidence' must link to at least one record in "
+                          "docs/lab-evidence/ (see templates/lab-evidence.md)")
+        return
+    try:
+        entry_rel = path.resolve().relative_to(docs_root.resolve()).as_posix()
+    except ValueError:
+        entry_rel = None
+    tested = [str(v) for v in meta.get("tested_versions") or []]
+    supporting: list[dict] = []
+    for link in linked:
+        record = (path.parent / link.split("#", 1)[0]).resolve()
+        if not record.is_file():
+            rep.errors.append(f"{path}: lab evidence record not found: {link}")
+            continue
+        errs = cle.validate_record(record, today=today, docs_root=docs_root)
+        rep.errors += [f"{path}: invalid lab evidence record: {e}" for e in errs]
+        rmeta, _ = cle.split(record)
+        if entry_rel is not None and rmeta.get("entry") != entry_rel:
+            rep.errors.append(f"{path}: record {record.name} supports '{rmeta.get('entry')}', "
+                              "not this entry")
+            continue
+        if rmeta.get("outcome") not in cle.SUPPORTING_OUTCOMES:
+            continue
+        if not any(str(rmeta.get("tool_version")) in t for t in tested):
+            rep.errors.append(f"{path}: record {record.name} tests version "
+                              f"{rmeta.get('tool_version')}, which is not in tested_versions")
+        supporting.append(rmeta)
+    if not supporting:
+        rep.errors.append(f"{path}: status '{status}' needs at least one linked record with "
+                          "outcome 'pass' or 'partial'")
+    elif status == "production-validated" and \
+            not any(r.get("environment_type") == "production" for r in supporting):
+        rep.errors.append(f"{path}: 'production-validated' needs a supporting record with "
+                          "environment_type 'production'")
+
+
 def check_entry(path: Path, *, today: dt.date | None = None,
                 nav: set[str] | None = None, reviews: dict[str, list[str]] | None = None,
-                check_site_integration: bool = True) -> Report:
+                check_site_integration: bool = True, docs_root: Path = DOCS) -> Report:
     rep = Report()
     today = today or dt.date.today()
     text = path.read_text(encoding="utf-8")
@@ -331,6 +378,8 @@ def check_entry(path: Path, *, today: dt.date | None = None,
         if not evidence or not re.search(r"\b\d{4}-\d{2}-\d{2}\b", evidence):
             rep.errors.append(f"{path}: status '{status}' requires a dated "
                               "'### Lab evidence' subsection under References")
+        else:
+            check_lab_records(path, meta, status, evidence, rep, today=today, docs_root=docs_root)
 
     # Gate 4: authorisation context for active tools.
     if meta.get("requires_authorisation"):
