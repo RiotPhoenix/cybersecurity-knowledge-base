@@ -28,7 +28,14 @@ options for a given need and compare them consistently. Each tool entry follows 
 
 ## Tool entries
 
-!!! note "Planned"
-    No tool entries have been published in this category yet. Entries are added only after
-    they have been researched against official sources. See
-    [Contributing](../../contributing/index.md) to propose a tool.
+Each entry records its [verification status](../../contributing/verification-statuses.md)
+and a [quality review](../../contributing/quality-review-log.md) against the
+[documentation quality gates](../../contributing/quality-framework.md). *Research complete* means checked against official sources, not lab-tested.
+
+| Tool | What it is for | Personal | Enterprise | Status |
+|---|---|---|---|---|
+| [Nmap](nmap.md) | Host discovery, port and service scanning, segmentation validation | High | High (with scope control) | Research complete |
+| [Wireshark](wireshark.md) | Packet capture and protocol analysis for troubleshooting and investigation | High | High (as an analyst tool) | Research complete |
+
+Both tools observe or probe networks and require authorisation. Not yet documented:
+firewalls, NIDS, VPN, DNS filtering, and flow monitoring.

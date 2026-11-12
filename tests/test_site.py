@@ -31,6 +31,47 @@ def test_search_index_populated(site):
     assert any("Network Security" in d["title"] for d in docs)
 
 
+PUBLISHED_ENTRIES = {
+    "tools/network-security/nmap/": "Nmap",
+    "tools/network-security/wireshark/": "Wireshark",
+    "tools/vulnerability-management/greenbone-community-edition/": "Greenbone Community Edition",
+    "tools/vulnerability-management/nuclei/": "Nuclei",
+    "tools/password-management/keepassxc/": "KeePassXC",
+    "tools/password-management/vaultwarden/": "Vaultwarden",
+}
+
+
+def test_published_entries_built_and_searchable(site):
+    import json
+    docs = json.loads((site / "search/search_index.json").read_text())["docs"]
+    pages = {d["location"]: d["title"] for d in docs if "#" not in d["location"]}
+    for loc, title in PUBLISHED_ENTRIES.items():
+        assert (site / loc / "index.html").is_file(), loc
+        assert pages.get(loc) == title, f"{loc} missing from search index"
+        sections = [d for d in docs if d["location"].startswith(loc + "#")]
+        assert any(d["title"] == "Installation" for d in sections), f"{loc}: sections not indexed"
+
+
+def test_published_entries_in_navigation(site):
+    html = (site / "index.html").read_text()
+    for loc in PUBLISHED_ENTRIES:
+        assert f'href="{loc}"' in html, f"{loc} not in site navigation"
+
+
+def test_entries_render_admonitions_and_code(site):
+    html = (site / "tools/network-security/nmap/index.html").read_text()
+    assert 'class="admonition warning"' in html
+    assert 'class="highlight"' in html
+
+
+def test_no_unrendered_code_fences(site):
+    """A fence the Markdown parser missed renders as inline code starting with its language."""
+    import re as _re
+    bad = _re.compile(r"<code>(bash|sh|yaml|text|powershell|markdown|console|json|ini)\n")
+    for html in site.rglob("*.html"):
+        assert not bad.search(html.read_text()), f"{html.relative_to(site)}: unrendered code fence"
+
+
 def test_sitemap_uses_site_url(site):
     xml = (site / "sitemap.xml").read_text()
     assert "https://riotphoenix.github.io/cybersecurity-knowledge-base/" in xml

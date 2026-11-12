@@ -4,11 +4,13 @@ A structured, verification-focused reference for cybersecurity tools — what th
 they fit, how to install and harden them, and how they compare — across **personal,
 home-lab, professional, and enterprise** environments.
 
-!!! info "Project status: foundation release"
-    The site structure, taxonomy, templates, and editorial standards are in place.
-    **Tool entries have not been published yet.** Sections marked *Planned* describe intended
-    coverage, not finished content. Every future entry carries an explicit
-    [verification status](contributing/verification-statuses.md) and last-reviewed date.
+!!! info "Project status"
+    The first six tool entries are published, in network security, vulnerability management,
+    and password management. Each was checked against official sources and the
+    [documentation quality gates](contributing/quality-framework.md), and none is yet
+    lab-tested. Sections marked *Planned* describe intended coverage, not finished content.
+    Every entry carries an explicit [verification status](contributing/verification-statuses.md)
+    and last-reviewed date.
 
 ## Purpose and audience
 
@@ -28,12 +30,23 @@ evaluate and deploy it with confidence. It is written for:
 | **Personal and home lab** | Individuals securing their own devices and building isolated learning labs. | [Personal track](environments/personal/index.md) |
 | **Enterprise** | Organisations deploying tools at scale with governance, change control, and audit requirements. | [Enterprise track](environments/enterprise/index.md) |
 
+## Documented tools
+
+| Tool | Category | Use it to… | Status |
+|---|---|---|---|
+| [Nmap](tools/network-security/nmap.md) | Network Security | Discover hosts and services, and validate segmentation, on networks you are authorised to scan | Research complete |
+| [Wireshark](tools/network-security/wireshark.md) | Network Security | Capture and analyse packets for troubleshooting and investigation | Research complete |
+| [Greenbone Community Edition](tools/vulnerability-management/greenbone-community-edition.md) | Vulnerability Management | Run scheduled network vulnerability assessments | Research complete |
+| [Nuclei](tools/vulnerability-management/nuclei.md) | Vulnerability Management | Run targeted, template-based vulnerability checks | Research complete |
+| [KeePassXC](tools/password-management/keepassxc.md) | Password and Secret Management | Keep passwords in an offline encrypted database | Research complete |
+| [Vaultwarden](tools/password-management/vaultwarden.md) | Password and Secret Management | Self-host a Bitwarden-compatible password server (unofficial) | Research complete |
+
 ## Tool categories
 
 | Category | Scope | Status |
 |---|---|---|
-| [Network Security](tools/network-security/index.md) | Traffic analysis, firewalls, NIDS, VPN, DNS security | Planned |
-| [Vulnerability Management](tools/vulnerability-management/index.md) | Scanning, prioritisation, remediation tracking | Planned |
+| [Network Security](tools/network-security/index.md) | Traffic analysis, firewalls, NIDS, VPN, DNS security | 2 entries |
+| [Vulnerability Management](tools/vulnerability-management/index.md) | Scanning, prioritisation, remediation tracking | 2 entries |
 | [Penetration Testing](tools/penetration-testing/index.md) | Authorised offensive testing and control validation | Planned |
 | [Digital Forensics](tools/digital-forensics/index.md) | Evidence acquisition, preservation, analysis | Planned |
 | [OSINT](tools/osint/index.md) | Public-source research and exposure assessment | Planned |
@@ -44,7 +57,7 @@ evaluate and deploy it with confidence. It is written for:
 | [Cloud Security](tools/cloud-security/index.md) | Posture, IaC, cloud identity, containers | Planned |
 | [DevSecOps](tools/devsecops/index.md) | Pipeline security, SAST, supply chain | Planned |
 | [Identity and Access Management](tools/identity-access/index.md) | SSO, MFA, directories, privileged access | Planned |
-| [Password and Secret Management](tools/password-management/index.md) | Password managers, vaults, key management | Planned |
+| [Password and Secret Management](tools/password-management/index.md) | Password managers, vaults, key management | 2 entries |
 | [Infrastructure and Home Labs](tools/infrastructure/index.md) | Virtualisation, segmentation, lab design | Planned |
 
 ## Getting started
@@ -58,10 +71,10 @@ evaluate and deploy it with confidence. It is written for:
 | Section | Status |
 |---|---|
 | Category taxonomy and introductions | Available |
-| Tool entry template and editorial standards | Available |
-| Environment tracks (overview) | Available |
+| Tool entry template, editorial standards, and quality framework | Available |
+| Environment tracks, with links to documented tools | Available |
 | Glossary (core terms) | Available |
-| Tool entries | Planned |
+| Tool entries | 6 published; more planned |
 | Guides, comparisons, framework mappings | Planned |
 
 ## Contributing

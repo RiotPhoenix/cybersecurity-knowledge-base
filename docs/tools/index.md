@@ -20,6 +20,14 @@ areas is documented once, in its primary category, and cross-referenced from oth
 | [Password and Secret Management](password-management/index.md) | Are credentials and secrets stored and rotated safely? |
 | [Infrastructure and Home Labs](infrastructure/index.md) | Where can I build and test safely? |
 
-!!! note "No tool entries yet"
-    This release establishes the catalogue structure. Tool entries will be added
-    progressively, each with a stated [verification status](../contributing/verification-statuses.md).
+## Documented tools
+
+| Category | Entries |
+|---|---|
+| [Network Security](network-security/index.md) | [Nmap](network-security/nmap.md), [Wireshark](network-security/wireshark.md) |
+| [Vulnerability Management](vulnerability-management/index.md) | [Greenbone Community Edition](vulnerability-management/greenbone-community-edition.md), [Nuclei](vulnerability-management/nuclei.md) |
+| [Password and Secret Management](password-management/index.md) | [KeePassXC](password-management/keepassxc.md), [Vaultwarden](password-management/vaultwarden.md) |
+
+Other categories have no entries yet. Entries are added progressively. Each has a stated
+[verification status](../contributing/verification-statuses.md) and a recorded
+[quality review](../contributing/quality-review-log.md).

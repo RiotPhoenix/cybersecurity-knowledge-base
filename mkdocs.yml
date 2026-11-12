@@ -62,8 +62,14 @@ nav:
       - GitHub Pages Deployment: getting-started/deployment.md
   - Tools:
       - Catalogue: tools/index.md
-      - Network Security: tools/network-security/index.md
-      - Vulnerability Management: tools/vulnerability-management/index.md
+      - Network Security:
+          - Overview: tools/network-security/index.md
+          - Nmap: tools/network-security/nmap.md
+          - Wireshark: tools/network-security/wireshark.md
+      - Vulnerability Management:
+          - Overview: tools/vulnerability-management/index.md
+          - Greenbone Community Edition: tools/vulnerability-management/greenbone-community-edition.md
+          - Nuclei: tools/vulnerability-management/nuclei.md
       - Penetration Testing: tools/penetration-testing/index.md
       - Digital Forensics: tools/digital-forensics/index.md
       - OSINT: tools/osint/index.md
@@ -74,7 +80,10 @@ nav:
       - Cloud Security: tools/cloud-security/index.md
       - DevSecOps: tools/devsecops/index.md
       - Identity and Access Management: tools/identity-access/index.md
-      - Password and Secret Management: tools/password-management/index.md
+      - Password and Secret Management:
+          - Overview: tools/password-management/index.md
+          - KeePassXC: tools/password-management/keepassxc.md
+          - Vaultwarden: tools/password-management/vaultwarden.md
       - Infrastructure and Home Labs: tools/infrastructure/index.md
   - Environments:
       - Overview: environments/index.md

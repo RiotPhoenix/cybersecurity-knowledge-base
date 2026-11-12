@@ -26,7 +26,15 @@ options for a given need and compare them consistently. Each tool entry follows 
 
 ## Tool entries
 
-!!! note "Planned"
-    No tool entries have been published in this category yet. Entries are added only after
-    they have been researched against official sources. See
-    [Contributing](../../contributing/index.md) to propose a tool.
+Each entry records its [verification status](../../contributing/verification-statuses.md)
+and a [quality review](../../contributing/quality-review-log.md) against the
+[documentation quality gates](../../contributing/quality-framework.md). *Research complete* means checked against official sources, not lab-tested.
+
+| Tool | What it is for | Personal | Enterprise | Status |
+|---|---|---|---|---|
+| [KeePassXC](keepassxc.md) | Offline, file-based encrypted password database | High | Low to Medium (no central administration) | Research complete |
+| [Vaultwarden](vaultwarden.md) | Unofficial, self-hosted Bitwarden-compatible server | Medium to High | Low to Medium (community-supported) | Research complete |
+
+Choose KeePassXC if you want no server to run; choose a server such as Vaultwarden if you
+need multi-device sync and sharing and can operate HTTPS, backups, and updates reliably.
+Not yet documented: machine-secrets vaults, key management, and secret-sprawl detection.
